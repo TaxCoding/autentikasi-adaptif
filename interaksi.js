@@ -13,7 +13,7 @@ const INTERAKSI = {
 
   /* ---------- Pengaturan umum ---------- */
   pengaturan: {
-    namaPembicara: "Naufal",     // nama di label kecil di atas kotak dialog
+    namaPembicara: "King",     // nama di label kecil di atas kotak dialog
     kecepatanKetik: 26           // milidetik per huruf (makin kecil makin cepat)
   },
 
@@ -29,8 +29,8 @@ const INTERAKSI = {
   /* ---------- Kalau pengguna memilih "Engga deh" ---------- */
   menolak: {
     teks: [
-      "Oh, begitu. Baiklah, tidak apa-apa.",
-      "Kalau berubah pikiran, aku masih di sini."
+      "Baiklah anak muda",
+      "Aku tetap disini jika engkau berubah pikiran"
     ],
     tombol: "Aku berubah pikiran"
   },
@@ -51,11 +51,11 @@ const INTERAKSI = {
     {
       variabel: "p",
       teks: [
-        "Apakah yang ingin kau lakukan adalah hal sensitif?",
+        "Yang saudara lakukan hal sensitif?",
         "Contohnya: ubah nilai, transaksi, atau akses admin."
       ],
-      ya: "Iya, sensitif",
-      tidak: "Bukan, cuma lihat-lihat",
+      ya: "Iya, sensitif bang",
+      tidak: "Engga bang",
       tanggapanYa: [],
       tanggapanTidak: [],
       nama: "Kebutuhan akses",
@@ -67,8 +67,8 @@ const INTERAKSI = {
       teks: [
         "Naruhodo, lantas apakah kau memakai perangkat publik atau perangkat yang tidak dikenal?"
       ],
-      ya: "Iya, perangkat publik / asing",
-      tidak: "Bukan, perangkat pribadiku",
+      ya: "Iya deh keknya",
+      tidak: "Bukan bang king",
       tanggapanYa: [],
       tanggapanTidak: [],
       nama: "Jenis perangkat",
@@ -78,11 +78,11 @@ const INTERAKSI = {
     {
       variabel: "r",
       teks: [
-        "Naruhodo, lalu bagaimana dengan jaringanmu?",
+        "Oke, selanjutnya gimana sama jaringanmu?",
         "Apakah terdeteksi IP asing, VPN, atau lokasi yang mencurigakan?"
       ],
-      ya: "Iya, mencurigakan",
-      tidak: "Tidak, jaringan terpercaya",
+      ya: "agak Sus gitu",
+      tidak: "Terpercaya mah bang",
       tanggapanYa: [],
       tanggapanTidak: [],
       nama: "Keamanan jaringan",
@@ -95,8 +95,8 @@ const INTERAKSI = {
         "Naruhodo, pertanyaan terakhir!",
         "Sekarang jam {jam} di perangkatmu. Apakah kau sedang login di jam yang tidak wajar (01.00 sampai 05.00)?"
       ],
-      ya: "Iya, jam tidak wajar",
-      tidak: "Tidak, jam wajar",
+      ya: "Iya ga wajar sih",
+      tidak: "normal inimah",
       tanggapanYa: [],
       tanggapanTidak: [],
       nama: "Anomali waktu",
@@ -107,22 +107,22 @@ const INTERAKSI = {
 
   /* ---------- Kalimat sebelum hasil keluar ---------- */
   sebelumHasil: [
-    "Hmm... hmm... aku sudah menimbang semua jawabanmu."
+    "Hmm... Hmm... AHAHAHA naruhodo, bang king udah menimbang jawabanmu..."
   ],
 
   /* ---------- Hasil untuk tiap kode keputusan ---------- */
   hasil: {
     A1: {
       teks: [
-        "Santai saja. Tidak ada tanda risiko sama sekali.",
-        "Password utama sudah cukup untuk keadaanmu."
+        "Selow aman ni keknya",
+        "Password aja cukup lah ya"
       ],
       tingkat: "Keamanan rendah",
       rekomendasi: "Cukup password utama"
     },
     A2: {
       teks: [
-        "Ada sesuatu yang perlu diwaspadai.",
+        "Wahh ada something ini, mending langkah pencegahan",
         "Password saja tidak cukup. Tambahkan kode OTP."
       ],
       tingkat: "Keamanan menengah",
@@ -130,7 +130,7 @@ const INTERAKSI = {
     },
     A3: {
       teks: [
-        "Gawat, tanda risikonya sudah lebih dari satu!",
+        "Waduh ini udah tanda ini dek, jadi udah agak bahaya ini...",
         "Kau harus pakai biometrik, passkey, atau hardware key."
       ],
       tingkat: "Keamanan tinggi",
@@ -138,7 +138,7 @@ const INTERAKSI = {
     },
     A4: {
       teks: [
-        "Tunggu dulu! Semua tanda bahaya menyala sekaligus!",
+        "PRITT PRITTT, wait ini mah fatal ini woi!!",
         "Aku tidak bisa membiarkanmu masuk. Akses diblokir sepenuhnya."
       ],
       tingkat: "Risiko kritis",
