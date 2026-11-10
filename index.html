@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Autentikasi Adaptif · Logika Matematika</title>
+  <meta name="description" content="Rekomendasi metode autentikasi adaptif berbasis logika matematika, lewat dialog interaktif.">
+  <meta name="theme-color" content="#131c3a">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&display=swap" rel="stylesheet">
+  <link rel="preload" as="image" href="assets/latar.jpg">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="backdrop" aria-hidden="true"></div>
+
+  <main class="panggung" id="panggung">
+    <img class="foto" src="assets/latar.jpg" alt="Naufal berdiri bersandar di dinding beton, satu tangan menyentuh kepala" width="1200" height="1600">
+
+    <ol class="pips" id="pips" aria-label="Kemajuan jawaban"></ol>
+
+    <!-- Kotak dialog -->
+    <section class="kotak" id="kotak" tabindex="0" aria-label="Dialog">
+      <span class="nama" id="nama"></span>
+      <p class="teks" id="teks"></p>
+      <div class="pilihan" id="pilihan"></div>
+      <span class="lanjut" id="lanjut" hidden aria-hidden="true"></span>
+      <span class="sr-only" id="live" aria-live="polite"></span>
+    </section>
+
+    <!-- Kartu hasil -->
+    <section class="hasil" id="hasil" hidden aria-labelledby="hasil-judul">
+      <div class="hasil-atas">
+        <div class="kode" id="hasil-kode" aria-hidden="true"></div>
+        <div>
+          <p class="hasil-tingkat" id="hasil-tingkat"></p>
+          <h1 id="hasil-judul"></h1>
+        </div>
+      </div>
+      <h2 id="hasil-label-ringkasan"></h2>
+      <ul class="ringkasan" id="ringkasan"></ul>
+      <h2 id="hasil-label-rumus"></h2>
+      <p class="rumus" id="hasil-rumus"></p>
+      <div class="aksi">
+        <button type="button" class="tombol sekunder" id="btn-tabel"></button>
+        <button type="button" class="tombol utama" id="btn-ulang"></button>
+      </div>
+    </section>
+
+    <!-- Tabel kebenaran -->
+    <section class="tabel-panel" id="tabel-panel" hidden aria-labelledby="tabel-judul">
+      <header>
+        <h1 id="tabel-judul"></h1>
+        <button type="button" class="tombol sekunder kecil" id="btn-tutup"></button>
+      </header>
+      <div class="tabel-gulir">
+        <table id="tabel">
+          <thead>
+            <tr><th scope="col">No</th><th scope="col">p</th><th scope="col">q</th><th scope="col">r</th><th scope="col">s</th><th scope="col">Risiko</th><th scope="col">Kode</th></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <noscript><p style="position:fixed;inset:auto 0 0;padding:16px;background:#131c3a;color:#fff">Halaman ini butuh JavaScript untuk berjalan.</p></noscript>
+
+  <script src="logika.js"></script>
+  <script src="interaksi.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
