@@ -1,74 +1,130 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Autentikasi Adaptif · Logika Matematika</title>
-  <meta name="description" content="Rekomendasi metode autentikasi adaptif berbasis logika matematika, lewat dialog interaktif.">
-  <meta name="theme-color" content="#131c3a">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&display=swap" rel="stylesheet">
-  <link rel="preload" as="image" href="assets/latar.jpg">
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sistem Rekomendasi Autentikasi — Dialog Game</title>
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-  <div class="backdrop" aria-hidden="true"></div>
+  <main class="viewport-wrapper">
+    <section class="game-frame" aria-label="Dialog Game Rekomendasi Autentikasi">
+      <!-- Background Image -->
+      <div class="bg-layer" role="img" aria-label="Latar belakang karakter King"></div>
+      <div class="bg-vignette"></div>
 
-  <main class="panggung" id="panggung">
-    <img class="foto" src="assets/latar.jpg" alt="Naufal berdiri bersandar di dinding beton, satu tangan menyentuh kepala" width="1200" height="1600">
-
-    <ol class="pips" id="pips" aria-label="Kemajuan jawaban"></ol>
-
-    <!-- Kotak dialog -->
-    <section class="kotak" id="kotak" tabindex="0" aria-label="Dialog">
-      <span class="nama" id="nama"></span>
-      <p class="teks" id="teks"></p>
-      <div class="pilihan" id="pilihan"></div>
-      <span class="lanjut" id="lanjut" hidden aria-hidden="true"></span>
-      <span class="sr-only" id="live" aria-live="polite"></span>
-    </section>
-
-    <!-- Kartu hasil -->
-    <section class="hasil" id="hasil" hidden aria-labelledby="hasil-judul">
-      <div class="hasil-atas">
-        <div class="kode" id="hasil-kode" aria-hidden="true"></div>
-        <div>
-          <p class="hasil-tingkat" id="hasil-tingkat"></p>
-          <h1 id="hasil-judul"></h1>
+      <!-- TOP HUD: Progress Evaluasi & Simbol Proposisi -->
+      <header class="top-hud" id="top-hud">
+        <!-- Baris 1: Progress Evaluasi -->
+        <div class="progress-card">
+          <div class="progress-header">
+            <span class="progress-title">PROGRESS EVALUASI</span>
+            <span class="progress-counter" id="progress-counter">Prolog • 0%</span>
+          </div>
+          <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progress-track">
+            <div class="progress-fill" id="progress-fill" style="width: 0%;"></div>
+          </div>
+          <div class="device-status-row">
+            <span class="device-label">Perangkat:</span>
+            <span class="device-value" id="hud-device">Belum dipilih</span>
+          </div>
         </div>
-      </div>
-      <h2 id="hasil-label-ringkasan"></h2>
-      <ul class="ringkasan" id="ringkasan"></ul>
-      <h2 id="hasil-label-rumus"></h2>
-      <p class="rumus" id="hasil-rumus"></p>
-      <div class="aksi">
-        <button type="button" class="tombol sekunder" id="btn-tabel"></button>
-        <button type="button" class="tombol utama" id="btn-ulang"></button>
-      </div>
-    </section>
 
-    <!-- Tabel kebenaran -->
-    <section class="tabel-panel" id="tabel-panel" hidden aria-labelledby="tabel-judul">
-      <header>
-        <h1 id="tabel-judul"></h1>
-        <button type="button" class="tombol sekunder kecil" id="btn-tutup"></button>
+        <!-- Baris 2: Simbol Proposisi Input (H, U, S, K) + Nilai B / T di bawahnya -->
+        <div class="propositions-section">
+          <div class="prop-grid" aria-label="Status Proposisi Input">
+            <div class="prop-item" id="prop-card-H" title="H: Risiko akses tinggi (risikoTinggi)">
+              <div class="prop-symbol-box">
+                <span class="prop-symbol">H</span>
+                <span class="prop-sub">Risiko</span>
+              </div>
+              <div class="prop-truth pending" id="truth-H" aria-label="Nilai proposisi H">?</div>
+            </div>
+
+            <div class="prop-item" id="prop-card-U" title="U: Perangkat tidak dikenal (perangkatTidakDikenal)">
+              <div class="prop-symbol-box">
+                <span class="prop-symbol">U</span>
+                <span class="prop-sub">Asing</span>
+              </div>
+              <div class="prop-truth pending" id="truth-U" aria-label="Nilai proposisi U">?</div>
+            </div>
+
+            <div class="prop-item" id="prop-card-S" title="S: Mengakses data sensitif (aksesSensitif)">
+              <div class="prop-symbol-box">
+                <span class="prop-symbol">S</span>
+                <span class="prop-sub">Sensitif</span>
+              </div>
+              <div class="prop-truth pending" id="truth-S" aria-label="Nilai proposisi S">?</div>
+            </div>
+
+            <div class="prop-item" id="prop-card-K" title="K: (jenisPerangkat != 4) && mendukungPasskey">
+              <div class="prop-symbol-box">
+                <span class="prop-symbol">K</span>
+                <span class="prop-sub">Passkey</span>
+              </div>
+              <div class="prop-truth pending" id="truth-K" aria-label="Nilai proposisi K">?</div>
+            </div>
+          </div>
+
+          <!-- Baris 3: Evaluasi Rumus Proposisi Output (M, B, P) -->
+          <div class="derived-grid" aria-label="Evaluasi Proposisi Output">
+            <div class="derived-item" id="derived-M" title="M = H || U || S (Multi-Factor Authentication)">
+              <span class="derived-formula">M = H ∨ U ∨ S</span>
+              <span class="derived-truth pending" id="truth-M">?</span>
+            </div>
+            <div class="derived-item" id="derived-B" title="B = !M && K (Passkey)">
+              <span class="derived-formula">B = ¬M ∧ K</span>
+              <span class="derived-truth pending" id="truth-B">?</span>
+            </div>
+            <div class="derived-item" id="derived-P" title="P = !M && !K (Password)">
+              <span class="derived-formula">P = ¬M ∧ ¬K</span>
+              <span class="derived-truth pending" id="truth-P">?</span>
+            </div>
+          </div>
+
+          <div class="legend-strip">
+            <span><strong class="legend-b">B</strong> = Benar (True)</span>
+            <span>•</span>
+            <span><strong class="legend-t">T</strong> = Tidak (False)</span>
+          </div>
+        </div>
       </header>
-      <div class="tabel-gulir">
-        <table id="tabel">
-          <thead>
-            <tr><th scope="col">No</th><th scope="col">p</th><th scope="col">q</th><th scope="col">r</th><th scope="col">s</th><th scope="col">Risiko</th><th scope="col">Kode</th></tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-      </div>
+
+      <!-- RESULT OVERLAY (Muncul saat evaluasi selesai) -->
+      <section class="result-panel hidden" id="result-panel" aria-live="polite">
+        <div class="result-header">
+          <span class="result-tag">HASIL EVALUASI LOGIKA</span>
+          <h2 class="result-method" id="result-method">-</h2>
+        </div>
+
+        <div class="result-body" id="result-body">
+          <!-- Diisi secara dinamis oleh js/dialog.js -->
+        </div>
+
+        <div class="result-actions">
+          <button type="button" class="btn-restart" id="btn-restart">
+            ↻ Evaluasi Ulang
+          </button>
+        </div>
+      </section>
+
+      <!-- BOTTOM VISUAL NOVEL DIALOG BOX -->
+      <section class="dialog-box" id="dialog-box" aria-live="polite">
+        <div class="speaker-badge" id="speaker-badge">King lelouch</div>
+
+        <div class="dialog-content" id="dialog-content" title="Klik untuk mempercepat teks">
+          <p class="dialog-text" id="dialog-text"></p>
+          <span class="typing-cursor" id="typing-cursor" aria-hidden="true">▌</span>
+        </div>
+
+        <div class="choices-list" id="choices-list" role="group" aria-label="Pilihan Jawaban">
+          <!-- Tombol pilihan dirender secara dinamis -->
+        </div>
+      </section>
     </section>
   </main>
 
-  <noscript><p style="position:fixed;inset:auto 0 0;padding:16px;background:#131c3a;color:#fff">Halaman ini butuh JavaScript untuk berjalan.</p></noscript>
-
-  <script src="logika.js"></script>
-  <script src="interaksi.js"></script>
-  <script src="app.js"></script>
+  <script src="js/logic.js"></script>
+  <script src="js/dialog.js"></script>
 </body>
 </html>
